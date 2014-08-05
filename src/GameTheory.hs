@@ -36,11 +36,14 @@ setup st rootWindow = void $ do
   getBody rootWindow #+
     map element [ userNameInput, loginButton, dv ]
 
-  renderDilemmaView st rootWindow
+  ui <- getUIElements rootWindow
+  maybe (undefined) (renderDilemmaView st rootWindow) ui
 
 
 
-{-
+
+
+{- When using gloss:
 main :: IO ()
 main = playIO (InWindow "Game Theory" (500,500) (10,10))
        white 30 state0 worldPic input timestep

@@ -25,8 +25,10 @@ data GamePhase = Title
                | ShowHelp
                deriving (Eq, Show)
 
-data DilemmaView = DilemmaView {
-    _dilemmaViewElement :: Element
+data DilemmaElements = DilemmaElements {
+    _themeText          :: Element
+  , _themeUp            :: Element
+  , _themeDown          :: Element
   , _leftButtons        :: ButtonElements
   , _rightButtons       :: ButtonElements
   , _instructions       :: Element
@@ -35,8 +37,7 @@ data DilemmaView = DilemmaView {
   }
 
 data ButtonElements = ButtonElements {
-    _buttonElements :: Element
-  , _buttonsTopText :: Element
+    _buttonsTopText :: Element
   , _buttonAImage   :: Element
   , _buttonASubtext :: Element
   , _buttonBImage   :: Element
@@ -44,7 +45,7 @@ data ButtonElements = ButtonElements {
   }
 
 data HelpScreen = HelpScreen {
-    _helpScreenElement :: Element
+    _helpDiv           :: Element
   , _youCollabText     :: Element
   , _youDefectText     :: Element
   , _themCollabText    :: Element
@@ -52,6 +53,6 @@ data HelpScreen = HelpScreen {
   }
   
 $(makeLenses ''GameState)
-$(makeLenses ''DilemmaView)
+$(makeLenses ''DilemmaElements)
 $(makeLenses ''ButtonElements)
 $(makeLenses ''HelpScreen)

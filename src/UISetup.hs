@@ -1,5 +1,6 @@
 module UISetup where
 
+import           Control.Error
 import           Control.Lens                hiding ((#), set)
 import           Control.Monad
 import qualified Graphics.UI.Threepenny      as UI
@@ -31,6 +32,7 @@ setupHelpScreen = do
              , [themCText, smallGridBox m m, smallGridBox l s]
              , [themDText, smallGridBox s l, smallGridBox s s]
              ]]
+    # set UI.id_ "helpDiv"
 
   where
     smallGridBox :: UI Element -> UI Element -> UI Element
@@ -68,4 +70,38 @@ setupDilemmaView =
     , setupHelpScreen
     ]]
 
-  
+
+------------------------------------------------------------------------------
+getUIElements :: Window -> UI (Maybe DilemmaElements)
+getUIElements w =
+  runMaybeT $ DilemmaElements
+  <$> MaybeT (getElementById w "themeText")
+  <*> MaybeT (getElementById w "themeUp")
+  <*> MaybeT (getElementById w "themeDown")
+  <*> MaybeT (getButtonGroupElements w "buttonsLeft")
+  <*> MaybeT (getButtonGroupElements w "buttonsRight")
+  <*> MaybeT (getElementById w "instructions")
+  <*> MaybeT (getElementById w "helpButton")
+  <*> MaybeT (getInstructionElements w)
+
+
+------------------------------------------------------------------------------
+getButtonGroupElements :: Window -> String -> UI (Maybe ButtonElements)
+getButtonGroupElements w groupName =
+  runMaybeT $ ButtonElements
+  <$> MaybeT (getElementById w $ groupName ++ "TopText")
+  <*> MaybeT (getElementById w $ groupName ++ "ABtn")
+  <*> MaybeT (getElementById w $ groupName ++ "AText")
+  <*> MaybeT (getElementById w $ groupName ++ "BBtn")
+  <*> MaybeT (getElementById w $ groupName ++ "BText")
+
+
+------------------------------------------------------------------------------
+getInstructionElements :: Window -> UI (Maybe HelpScreen)
+getInstructionElements w =
+  runMaybeT $ HelpScreen
+  <$> MaybeT (getElementById w "helpDiv")
+  <*> MaybeT (getElementById w "helpYouCoop")
+  <*> MaybeT (getElementById w "helpYouDefect")
+  <*> MaybeT (getElementById w "helpTheyCoop")
+  <*> MaybeT (getElementById w "helpTheyDefect")

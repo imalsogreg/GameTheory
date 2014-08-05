@@ -17,9 +17,17 @@ cabal-version:       >=1.10
 
 executable GameTheory
   main-is:             GameTheory.hs
-  other-modules:       BBB, Types, Render, UISetup
+  other-modules:       BBB, Types, Render, UISetup, GameTheoryGloss
   -- other-extensions:    
   build-depends:       base,
-                       stm, gloss, threepenny-gui, lens, filepath
+                       errors, stm, gloss, threepenny-gui, lens, filepath
   hs-source-dirs:      src
   default-language:    Haskell2010
+
+executable GameTheoryGloss
+  main-is:            GameTheoryGloss.hs
+  other-modules:      BBB, Types, Render, UISetup, GameTheory
+  build-depends:      base,
+                      errors, stm, gloss, threepenny-gui, lens, filepath, containers
+  hs-source-dirs:     src
+  default-language:   Haskell2010

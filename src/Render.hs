@@ -9,9 +9,11 @@ import           Types
 
 
 ------------------------------------------------------------------------------
-renderDilemmaView :: GameState -> Window -> UI ()
-renderDilemmaView gs w = do
-  el <- getElementById w "themeText"
-  maybe (UI.string "Missing element")
-    ( (set text (show (gs ^. gameTheme) ++ " Dilemma")) . pure) el
+renderDilemmaView :: GameState -> Window -> DilemmaElements -> UI ()
+renderDilemmaView gs w de = do
+  set text (show (gs ^. gameTheme) ++ " Dilemma 2")
+    (pure $ de^.themeText)
+  
   return ()
+
+toggleHelp :: 
