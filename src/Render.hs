@@ -1,5 +1,6 @@
 module Render where
 
+import           Control.Applicative
 import           Control.Lens hiding ((#),element,set)
 import           Control.Monad
 import qualified Graphics.UI.Threepenny      as UI
@@ -16,4 +17,4 @@ renderDilemmaView gs w de = do
   
   return ()
 
-toggleHelp :: 
+--toggleHelp :: 
